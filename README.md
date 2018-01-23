@@ -138,6 +138,7 @@ The following environment variables are supported. You can pass environment vari
 |`SUMO_PROXY_USER`            |Sets proxy user when a proxy server is used with authentication.|
 |`SUMO_SOURCES_JSON`          |Specifies the path to the `sumo-sources.json` file. <br><br>Default: `/etc/sumo-sources.json`. |
 |`SUMO_SYNC_SOURCES`          |If “true”, the `SUMO_SOURCES_JSON` file(s) will be continuously monitored and synchronized with the Collector's configuration. This will also disable editing of the collector in the Sumo UI. <br><br>Default: false|
+|`SUMO_LOG_TO_CONTAINER`      |If “true”, the log from collector will be redirected to the docker container. <br><br>Default: false|
 
 ### Configure collector in user.properties file
 You can supply source configuration values using a `user.properties` file via a Docker volume mount. For information about supported properties, see [user.properties](http://help.sumologic.com/Send_Data/Installed_Collectors/05Reference_Information_for_Collector_Installation/06user.properties) in Sumo help. For information about Docker volumes, see [Use Volumes](https://docs.docker.com/engine/admin/volumes/volumes/) in Docker help.

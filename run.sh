@@ -17,6 +17,7 @@ SUMO_RECEIVER_URL=${SUMO_RECEIVER_URL:=https://collectors.sumologic.com}
 SUMO_COLLECTOR_NAME=${SUMO_COLLECTOR_NAME_PREFIX:='collector_container-'}${SUMO_COLLECTOR_NAME:=`cat /etc/hostname`}
 SUMO_SOURCES_JSON=${SUMO_SOURCES_JSON:=/etc/sumo-sources.json}
 SUMO_SYNC_SOURCES=${SUMO_SYNC_SOURCES:=false}
+SUMO_LOG_TO_CONTAINER=${SUMO_LOG_TO_CONTAINER:=false}
 
 generate_user_properties_file() {
     if [ -z "$SUMO_ACCESS_ID" ] || [ -z "$SUMO_ACCESS_KEY" ]; then
@@ -116,4 +117,9 @@ $SUMO_GENERATE_USER_PROPERTIES && {
 
 # The -t flag will force the collector to run as ephemeral
 # Don't leave our shell hanging around
-exec /opt/SumoCollector/collector console -- -t
+if [ "${SUMO_LOG_TO_CONTAINER}" == "true" ]; then
+    /opt/SumoCollector/collector start -- -t
+    exec tail -f /opt/SumoCollector/logs/collector.log
+else
+    exec /opt/SumoCollector/collector console -- -t
+fi
